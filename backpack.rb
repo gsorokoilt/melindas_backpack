@@ -1,4 +1,5 @@
 class Backpack
+
   def initialize(attributes)
     @attributes = attributes # a hash containing day_of_week and weather keys
     @items = []
@@ -11,37 +12,42 @@ class Backpack
 
   def prepare
     # set up local variables used by rest of prepare method
-    weather = @attributes[:weather]
-    day_of_week = @attributes[:day_of_week]
-
     # Ensure appropriate items are added to backpack
+    always_pack
+    weather_pack
+    day_of_week_pack
+  end
+# Ensure gym shoes are added to backpack if it's a gym day
+
+  def always_pack
+    @items << 'pants'
+    @items << 'shirt'
+  end
+
+
+  def weather_pack
+    weather = @attributes[:weather]
     if weather == 'rainy'
-      @items << 'pants'
-      @items << 'shirt'
       @items << 'umbrella'
     elsif weather == 'cold'
-      @items << 'pants'
-      @items << 'shirt'
       @items << 'jacket'
-    else
-      @items << 'pants'
-      @items << 'shirt'
     end
+  end
 
-    # Ensure gym shoes are added to backpack if it's a gym day
 
-    if day_of_week == 'monday' || day_of_week == 'thursday'
-      #add gym shoes to items
-      @items << 'gym shoes'
-    end
+  def day_of_week_pack
+    day_of_week = @attributes[:day_of_week]
+      if day_of_week == 'monday' || day_of_week == 'thursday'
+        #add gym shoes to items
+        @items << 'gym shoes'
+      end
 
-    # Bring a packed lunch on all weekdays
-    if day_of_week != 'saturday' && day_of_week != 'sunday'
-      @items << 'packed lunch'
-    elsif false
+      if day_of_week != 'saturday' && day_of_week != 'sunday'
+        @items << 'packed lunch'
+      elsif false
       # Used to bring snacks on weekend trips, but now I just buy 'em
-      @items << 'snacks'
-    end
+        @items << 'snacks'
+      end
   end
 
   # Prints a summary packing list for Melinda's backpack
@@ -56,5 +62,4 @@ class Backpack
     end
     output.join("\n")
   end
-
 end
